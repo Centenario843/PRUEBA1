@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Centenario - Etiquetas</title>
+    <style>
+        /* ESTILOS VISUALES */
+        body { font-family: Arial, sans-serif; background: #222; color: white; margin: 0; padding: 20px; }
+        .no-print { background: #333; padding: 20px; border-radius: 10px; max-width: 800px; margin: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        
+        /* DISEÑO DE ETIQUETA (IDÉNTICO A TU IMAGEN) */
+        .contenedor-etiquetas { display: grid; grid-template-columns: repeat(auto-fill, 7cm); gap: 10px; justify-content: center; margin-top: 20px; }
+        
+        .etiqueta {
+            width: 7cm; height: 5cm; background-color: black; color: white;
+            padding: 10px; box-sizing: border-box; border: 2px solid white;
+            border-radius: 15px; display: flex; flex-direction: column;
+            justify-content: space-between; position: relative; page-break-inside: avoid;
+        }
+
+        .codigo { font-size: 14px; font-weight: normal; margin-bottom: 5px; }
+        .detalle { 
+            font-size: 16px; font-weight: bold; text-align: center; 
+            text-transform: uppercase; border-bottom: 1px solid white; padding-bottom: 5px;
+        }
+        .precio { font-size: 48px; font-weight: bold; text-align: center; margin: auto 0; }
+        .marca { font-size: 10px; text-align: center; letter-spacing: 3px; opacity: 0.7; }
+
+        /* LOGIN Y TABLA */
+        input, button, textarea { width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none; }
+        button { background: #28a745; color: white; font-weight: bold; cursor: pointer; }
+        table { width: 100%; color: white; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #444; padding: 8px; text-align: left; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .no-print { display: none; }
+            .contenedor-etiquetas { display: block; }
+            .etiqueta { margin-bottom: 0.2cm; border: 2px solid black; } /* Ahorra tinta pero mantiene forma */
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-section" class="no-print">
+    <h1>PANADERÍA CENTENARIO</h1>
+    <input type="password" id="pass" placeholder="Contraseña de acceso">
+    <button onclick="login()">Entrar al Sistema</button>
+</div>
+
+<div id="admin-section" class="no-print" style="display:none;">
+    <h2>Actualización Semanal de Precios</h2>
+    <p>Pega desde Excel (Código | Detalle | Precio):</p>
+    <textarea id="csv-input" rows="5" placeholder="609	MASAS FINAS X KG	26500"></textarea>
+    <button onclick="procesarDatos()">Actualizar y Generar</button>
+    <button onclick="window.print()" style="background: #007bff;">Imprimir Etiquetas</button>
+    
+    <div id="lista-productos"></div>
+</div>
+
+<div id="contenedor-etiquetas" class="contenedor-etiquetas"></div>
+
+<script>
+    // Seguridad Simple
+    function login() {
+        const p = document.getElementById('pass').value;
+        if(p === "1234") { // <--- CAMBIA TU CONTRASEÑA AQUÍ
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('admin-section').style.display = 'block';
+        } else {
+            alert("Acceso denegado");
+        }
+    }
+
+    function procesarDatos() {
+        const input = document.getElementById('csv-input').value;
+        const contenedor = document.getElementById('contenedor-etiquetas');
+        contenedor.innerHTML = '';
+        
+        const lineas = input.split('\n');
+        lineas.forEach(linea => {
+            const columnas = linea.split('\t');
+            if(columnas.length >= 3) {
+                const html = `
+                    <div class="etiqueta">
+                        <div class="codigo">${columnas[0]}</div>
+                        <div class="detalle">${columnas[1]}</div>
+                        <div class="precio">$${columnas[2]}</div>
+                        <div class="marca">CENTENARIO</div>
+                    </div>
+                `;
+                contenedor.innerHTML += html;
+            }
+        });
+    }
+</script>
+</body>
+</html>
