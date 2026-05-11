@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CENTENARIO - GESTIÓN INTEGRAL</title>
-    
-    <link rel="icon" type="image/png" href="https://i.ibb.co/L5rK5yX/LOGO-REDONDO.png">
-    
+    <title>SISTEMA CENTENARIO - GESTIÓN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ESTILOS PROFESIONALES INSPIRADOS EN TU CAPTURA */
         :root {
             --bg-dark: #0a0e14;
             --sidebar-bg: #11161d;
-            --card-bg: #161b22;
-            --accent-green: #2ea043;
+            --card-bg: #ffffff;
             --accent-blue: #1f6feb;
             --text-main: #8b949e;
             --text-bright: #ffffff;
@@ -25,101 +20,59 @@
             margin: 0; padding: 0; height: 100%; 
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--bg-dark); color: var(--text-main);
-            overflow: hidden;
         }
 
-        /* --- PANTALLA DE LOGIN CON TU LOGO --- */
+        /* PANTALLA DE ACCESO PROFESIONAL */
         #login-screen {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100vh; background-color: var(--bg-dark); z-index: 1000; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            height: 100vh; background-color: var(--bg-dark);
         }
         .login-card {
-            background-color: var(--card-bg); padding: 40px; border-radius: 20px;
-            width: 320px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid var(--border);
+            background-color: white; padding: 40px; border-radius: 30px;
+            width: 350px; text-align: center; box-shadow: 0 10px 50px rgba(0,0,0,0.5);
         }
-        .logo-circle {
-            width: 120px; height: 120px; background: white; border-radius: 50%;
-            margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;
-            overflow: hidden; box-shadow: 0 0 15px rgba(255,255,255,0.1);
+        .logo-main {
+            width: 140px; height: 140px; margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
         }
-        
-        /* Imagen de tu logo en el login */
-        .logo-circle img { width: 90%; height: auto; }
+        .logo-main img { width: 100%; height: auto; border-radius: 50%; }
 
-        .login-card h2 { font-size: 18px; color: var(--text-bright); letter-spacing: 2px; margin-bottom: 5px; }
-        .login-card p { font-size: 11px; color: var(--text-main); text-transform: uppercase; margin-bottom: 30px; }
-        .login-card input {
-            width: 100%; padding: 12px; border-radius: 20px; border: 1px solid var(--border);
-            background: #000; color: white; margin-bottom: 15px; box-sizing: border-box; outline: none;
+        .login-card h2 { color: #1a1a1a; font-size: 20px; margin-bottom: 5px; font-weight: 800; }
+        .login-card p { color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; }
+        
+        .form-group { text-align: left; margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 10px; font-weight: bold; color: #1a1a1a; margin-bottom: 5px; text-transform: uppercase; }
+        
+        input, select {
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd;
+            background: #f8f9fa; color: #333; box-sizing: border-box; outline: none;
         }
+
         .btn-access {
-            width: 100%; padding: 12px; border-radius: 20px; border: none;
-            background: var(--accent-blue); color: white; cursor: pointer;
-            font-weight: bold; text-transform: uppercase; transition: 0.3s;
+            width: 100%; padding: 15px; border-radius: 12px; border: none;
+            background: #a9b7d1; color: white; cursor: pointer;
+            font-weight: bold; text-transform: uppercase; margin-top: 10px;
         }
-        .btn-access:hover { background: #388bfd; }
 
-        /* --- DASHBOARD PRINCIPAL CON TU LOGO --- */
+        /* SISTEMA PRINCIPAL (OCULTO INICIALMENTE) */
         #main-system { display: none; height: 100vh; grid-template-columns: 260px 1fr; }
+        .sidebar { background: var(--sidebar-bg); border-right: 1px solid var(--border); padding: 20px; }
+        .content { padding: 40px; overflow-y: auto; background: #f0f2f5; color: #333; }
 
-        .sidebar { background-color: var(--sidebar-bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-        .sidebar-header {
-            padding: 30px 20px; text-align: center; border-bottom: 1px solid var(--border);
-            display: flex; flex-direction: column; align-items: center;
-        }
-        
-        /* Imagen de tu logo en la barra lateral */
-        .sidebar-logo { width: 50px; height: 50px; background: white; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
-        .sidebar-logo img { width: 90%; height: auto; }
-
-        .sidebar-header p { font-size: 12px; font-weight: bold; color: var(--text-bright); margin: 0; }
-        
-        .sidebar-menu { flex-grow: 1; padding: 20px 0; }
-        .menu-item {
-            padding: 15px 25px; display: flex; align-items: center; cursor: pointer;
-            transition: 0.3s; color: var(--text-main); font-size: 14px;
-        }
-        .menu-item i { margin-right: 15px; width: 20px; text-align: center; }
-        .menu-item:hover, .menu-item.active {
-            background-color: #2ea04315; color: var(--text-bright);
-            border-left: 4px solid var(--accent-green);
-        }
-
-        /* Área de contenido */
-        .content-area { overflow-y: auto; background-color: var(--bg-dark); }
-        .top-bar {
-            padding: 15px 30px; background: var(--sidebar-bg); border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .section-view { padding: 40px; display: none; }
-        .section-view.active { display: block; }
-
-        /* MÓDULO ETIQUETAS (Tu requerimiento original) */
-        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 20px; }
-        textarea { width: 100%; height: 100px; background: #000; color: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px; box-sizing: border-box; }
-        .btn-action { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; margin-right: 10px; }
-
-        /* DISEÑO ETIQUETA FINAL (5cm x 7cm) */
-        .labels-grid { display: grid; grid-template-columns: repeat(auto-fill, 7cm); gap: 15px; justify-content: center; margin-top: 20px; }
+        /* DISEÑO ETIQUETAS (5x7cm) */
         .etiqueta {
             width: 7cm; height: 5cm; background: black; color: white;
-            border: 2px solid white; border-radius: 12px; padding: 10px; box-sizing: border-box;
-            display: flex; flex-direction: column; justify-content: space-between; font-family: Arial, sans-serif;
-            page-break-inside: avoid;
+            border: 2px solid white; border-radius: 15px; padding: 15px;
+            box-sizing: border-box; display: flex; flex-direction: column;
+            justify-content: space-between; margin-bottom: 10px;
         }
-        .et-cod { font-size: 16px; }
-        .et-det { font-size: 16px; font-weight: bold; text-align: center; text-transform: uppercase; }
-        .et-pre { font-size: 36px; font-weight: bold; text-align: center; }
-        
+        .et-pre { font-size: 36px; font-weight: bold; text-align: center; font-family: Arial; }
+        .et-det { font-size: 16px; text-align: center; font-family: Arial; font-weight: bold; text-transform: uppercase; }
+
         @media print {
             .no-print { display: none !important; }
             #main-system { display: block; }
-            .content-area { overflow: visible; }
-            .section-view { display: none; }
-            #mod-etiquetas { display: block; padding: 0; }
-            .card { border: none; background: none; padding: 0; }
-            .etiqueta { border: 2px solid black; }
+            .etiqueta { border: 2px solid black; page-break-inside: avoid; }
         }
     </style>
 </head>
@@ -127,95 +80,75 @@
 
     <div id="login-screen" class="no-print">
         <div class="login-card">
-            <div class="logo-circle">
-                <img src="https://i.ibb.co/L5rK5yX/LOGO-REDONDO.png" alt="Centenario Panadería">
+            <div class="logo-main">
+                <img src="https://raw.githubusercontent.com/Centenario843/ETIQUETAS/main/LOGO%20REDONDO.jpeg" alt="Centenario Logo">
             </div>
-            <h2>CENTENARIO</h2>
+            <h2>CENTENARIO ALIMENTOS</h2>
             <p>Gestión Centralizada</p>
-            <input type="password" id="access-pass" placeholder="Clave Digital">
-            <button class="btn-access" onclick="checkAccess()">Acceder al Núcleo</button>
+            
+            <div class="form-group">
+                <label>Estación de Trabajo</label>
+                <select>
+                    <option>SELECCIONAR OPERARIO</option>
+                    <option>ADMINISTRADOR</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Clave Digital</label>
+                <input type="password" id="pass" placeholder="••••••••">
+            </div>
+
+            <button class="btn-access" onclick="entrar()">ACCEDER AL NÚCLEO <i class="fa-solid fa-chevron-right"></i></button>
+            <p style="margin-top: 20px; font-size: 9px; color: #999;">CENTENARIO ALIMENTOS © 2026</p>
         </div>
     </div>
 
     <div id="main-system">
         <div class="sidebar no-print">
-            <div class="sidebar-header">
-                <div class="sidebar-logo">
-                    <img src="https://i.ibb.co/L5rK5yX/LOGO-REDONDO.png" alt="Logo">
-                </div>
-                <p>SISTEMA INTEGRAL</p>
-                <p style="font-size: 10px; color: var(--text-main); font-weight: normal;">CENTENARIO PANADERÍA</p>
-            </div>
-            <div class="sidebar-menu">
-                <div class="menu-item active" onclick="loadModule('inicio')"><i class="fa-solid fa-chart-line"></i> Inicio</div>
-                <div class="menu-item" onclick="loadModule('etiquetas')"><i class="fa-solid fa-tags"></i> Etiquetas Pro</div>
-                <div class="menu-item" style="opacity: 0.3;"><i class="fa-solid fa-box"></i> Productos</div>
-                <div class="menu-item" style="opacity: 0.3;"><i class="fa-solid fa-truck"></i> Proveedores</div>
-            </div>
+            <h3 style="color: white; font-size: 14px;"><i class="fa-solid fa-house"></i> Inicio</h3>
+            <p style="font-size: 11px; color: var(--text-main);">MÓDULOS</p>
+            <div style="cursor:pointer; padding: 10px 0;" onclick="alert('Sección Etiquetas')"><i class="fa-solid fa-tags"></i> Etiquetas</div>
+            <div style="cursor:pointer; padding: 10px 0; opacity: 0.5;"><i class="fa-solid fa-truck"></i> Logística</div>
+            <div style="cursor:pointer; padding: 10px 0; opacity: 0.5;"><i class="fa-solid fa-gear"></i> Administración</div>
         </div>
-
-        <div class="content-area">
-            <div class="top-bar no-print">
-                <h4 id="page-title" style="margin:0; color: var(--text-bright);">Inicio</h4>
-                <div style="font-size: 12px; color: var(--accent-green);">● Sistema Operativo</div>
+        <div class="content">
+            <div class="no-print">
+                <h1>Generador de Etiquetas Semanal</h1>
+                <textarea id="datos" style="width: 100%; height: 100px;" placeholder="Pega desde Excel..."></textarea>
+                <br><br>
+                <button onclick="generar()" style="padding: 10px 20px; background: #2ea043; color: white; border: none; border-radius: 5px; cursor: pointer;">Generar Etiquetas</button>
+                <button onclick="window.print()" style="padding: 10px 20px; background: #000; color: white; border: none; border-radius: 5px; cursor: pointer;">Imprimir PDF</button>
             </div>
-
-            <div id="mod-inicio" class="section-view active no-print">
-                <div class="card">
-                    <h2 style="color: var(--text-bright);">Bienvenido al Núcleo de Gestión</h2>
-                    <p>Selecciona un módulo en la barra lateral para comenzar.</p>
-                </div>
-            </div>
-
-            <div id="mod-etiquetas" class="section-view">
-                <div class="card no-print">
-                    <h3 style="color: var(--accent-blue);"><i class="fa-solid fa-tags"></i> Generador de Etiquetas Semanal</h3>
-                    <p style="font-size: 13px;">Pega los datos desde Excel (Columnas: Código | Producto | Precio)</p>
-                    <textarea id="excel-paste" placeholder="Ej: 609	MASAS FINAS X KG	26500"></textarea>
-                    <div style="margin-top: 15px;">
-                        <button class="btn-action" style="background: var(--accent-green); color: white;" onclick="generateLabels()">GENERAR</button>
-                        <button class="btn-action" style="background: var(--card-bg); color: var(--text-bright); border: 1px solid var(--border);" onclick="window.print()">IMPRIMIR PDF</button>
-                    </div>
-                </div>
-                
-                <div id="labels-container" class="labels-grid"></div>
-            </div>
+            <div id="contenedor" style="margin-top: 30px; display: flex; flex-wrap: wrap; gap: 15px;"></div>
         </div>
     </div>
 
     <script>
-        function checkAccess() {
-            const pass = document.getElementById('access-pass').value;
-            // Clave predeterminada
-            if(pass === "1234") {
+        function entrar() {
+            const p = document.getElementById('pass').value;
+            if(p === "1234") { // Cambia tu clave aquí
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-system').style.display = 'grid';
             } else {
-                alert("Clave incorrecta.");
+                alert("Clave incorrecta");
             }
         }
 
-        function loadModule(modName) {
-            document.querySelectorAll('.section-view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-            document.getElementById('mod-' + modName).classList.add('active');
-            event.currentTarget.classList.add('active');
-            document.getElementById('page-title').innerText = modName.toUpperCase();
-        }
-
-        function generateLabels() {
-            const data = document.getElementById('excel-paste').value;
-            const container = document.getElementById('labels-container');
+        function generar() {
+            const text = document.getElementById('datos').value;
+            const container = document.getElementById('contenedor');
             container.innerHTML = '';
-            
-            data.split('\n').forEach(line => {
+            const lines = text.split('\n');
+            lines.forEach(line => {
                 const cols = line.split('\t');
                 if(cols.length >= 3) {
                     container.innerHTML += `
                         <div class="etiqueta">
-                            <div class="et-cod">CÓD: ${cols[0]}</div>
+                            <div style="font-size: 12px;">CÓD: ${cols[0]}</div>
                             <div class="et-det">${cols[1]}</div>
                             <div class="et-pre">$${cols[2]}</div>
+                            <div style="text-align: center; font-size: 10px; letter-spacing: 2px;">CENTENARIO</div>
                         </div>
                     `;
                 }
